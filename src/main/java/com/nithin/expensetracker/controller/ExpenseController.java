@@ -1,3 +1,4 @@
+// controller class
 package com.nithin.expensetracker.controller;
 
 import com.nithin.expensetracker.model.Expense;
