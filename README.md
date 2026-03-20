@@ -109,4 +109,4 @@ Open browser or Postman → `http://localhost:8080/api/expenses`
 
 **Avula Nithin Kumar Reddy**
 - GitHub: [@nithinreddyavula](https://github.com/nithinreddy34261-del)
-- Email: nithinreddy4500@gmail.com
+- Email: nithinreddy34261@gmail.com
