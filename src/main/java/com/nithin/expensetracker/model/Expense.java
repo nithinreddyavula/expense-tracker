@@ -20,7 +20,7 @@ public class Expense {
     @Column(nullable = false)
     private String category; // e.g. Food, Travel, Shopping, Bills
 
-    @Column(nullable = false)
+    @Column(name = "expense_date", nullable = false)
     private LocalDate date;
 
     private String description;

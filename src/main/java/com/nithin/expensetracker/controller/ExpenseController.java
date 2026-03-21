@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/expenses")
@@ -69,5 +72,12 @@ public class ExpenseController {
     @GetMapping("/search")
     public ResponseEntity<List<Expense>> searchExpenses(@RequestParam String keyword) {
         return ResponseEntity.ok(expenseService.searchExpenses(keyword));
+    }
+    @GetMapping("/filter")
+    public ResponseEntity<List<Expense>> filterExpenses(
+            @RequestParam String category,
+            @RequestParam LocalDate from,
+            @RequestParam LocalDate to) {
+        return ResponseEntity.ok(expenseService.filterExpenses(category, from, to));
     }
 }

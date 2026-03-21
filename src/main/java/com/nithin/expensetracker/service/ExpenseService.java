@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import java.time.LocalDate;
 
 @Service
 public class ExpenseService {
@@ -56,5 +59,8 @@ public class ExpenseService {
     // Search expenses by title
     public List<Expense> searchExpenses(String keyword) {
         return expenseRepository.findByTitleContainingIgnoreCase(keyword);
+    }
+    public List<Expense> filterExpenses(String category, LocalDate from, LocalDate to) {
+        return expenseRepository.findByCategoryAndDateRange(category, from, to);
     }
 }
