@@ -25,9 +25,7 @@ public class ExpenseController {
     //@PathVariable()
     @GetMapping("/{id}")
     public ResponseEntity<Expense> getExpenseById(@PathVariable Long id) {
-        return expenseService.getExpenseById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(expenseService.getExpenseById(id));
     }
 
     @PostMapping

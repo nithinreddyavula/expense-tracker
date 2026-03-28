@@ -1,4 +1,5 @@
 package com.nithin.expensetracker.service;
+import com.nithin.expensetracker.exception.ResourceNotFoundException;
 import com.nithin.expensetracker.model.Expense;
 import com.nithin.expensetracker.repository.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +15,21 @@ public class ExpenseService {
     public List<Expense> getAllExpenses() {
         return expenseRepository.findAll();
     }
-    public Optional<Expense> getExpenseById(Long id) {
-        return expenseRepository.findById(id);
+    public Expense getExpenseById(Long id) {
+        return expenseRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Expense not found with id: " + id));
     }
     public Expense createExpense(Expense expense) {
         return expenseRepository.save(expense);
     }
     public void deleteExpense(Long id) {
+        Expense existing = expenseRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Expense not found with id: " + id));
         expenseRepository.deleteById(id);
     }
     public Expense updateExpense(Long id, Expense updatedExpense) {
         Expense existing = expenseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Expense not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Expense not found with id: " + id));
 
         existing.setTitle(updatedExpense.getTitle());
         existing.setAmount(updatedExpense.getAmount());
