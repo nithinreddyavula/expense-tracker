@@ -2,11 +2,12 @@ package com.nithin.expensetracker.controller;
 import com.nithin.expensetracker.model.Expense;
 import com.nithin.expensetracker.service.ExpenseService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,9 @@ public class ExpenseController {
     private ExpenseService expenseService;
 
     @GetMapping
-    public ResponseEntity<List<Expense>> getAllExpenses() {
-        return ResponseEntity.ok(expenseService.getAllExpenses());
+    public ResponseEntity<Page<Expense>> getAllExpenses(Pageable pageable) {
+
+        return ResponseEntity.ok(expenseService.getAllExpenses(pageable));
     }
 
     //@PathVariable()
@@ -41,7 +43,7 @@ public class ExpenseController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteExpense(@PathVariable Long id) {
         expenseService.deleteExpense(id);
-        return ResponseEntity.ok("Id with that expense is deleted");
+        return ResponseEntity.ok("Expense deleted successfully.");
     }
     @GetMapping("/category/{category}")
     public ResponseEntity<List<Expense>> getExpensesByCategory(@PathVariable String category) {

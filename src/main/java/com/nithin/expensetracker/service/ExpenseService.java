@@ -3,6 +3,8 @@ import com.nithin.expensetracker.exception.ResourceNotFoundException;
 import com.nithin.expensetracker.model.Expense;
 import com.nithin.expensetracker.repository.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +14,6 @@ import java.util.Optional;
 public class ExpenseService {
     @Autowired
     private ExpenseRepository expenseRepository;
-    public List<Expense> getAllExpenses() {
-        return expenseRepository.findAll();
-    }
     public Expense getExpenseById(Long id) {
         return expenseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Expense not found with id: " + id));
@@ -43,5 +42,8 @@ public class ExpenseService {
     }
     public List<Expense> searchExpenses(String keyword) {
         return expenseRepository.findByTitleContainingIgnoreCase(keyword);
+    }
+    public Page<Expense> getAllExpenses(Pageable pageable) {
+        return expenseRepository.findAll(pageable);
     }
 }
